@@ -6,7 +6,7 @@ stm32f103 + freeRTOS + uart ll driver loopback test
 - parity      : None
 - Stop Bits   : 1
 
-#### first,enable rx interupt at main user code 2:
+#### first,enable rx interrupt at main user code 2:
 
 ```
 /* USER CODE BEGIN 2 */
@@ -24,7 +24,7 @@ if(LL_USART_IsActiveFlag_RXNE(USART1))
 	osMessageQueuePut(uartRxQueueHandle,&data,0U,0U);
 }
 ```
-#### third, dequeue received data at task and enqueue it to tx queue, then enable tx interupt
+#### third, dequeue received data at task and enqueue it to tx queue, then enable tx interrupt
 ````
 uint8_t data;
 osStatus_t status;
@@ -39,7 +39,7 @@ for(;;)
 	osDelay(1);
 }
 ````
-#### last, dequeue send data at USART1_IRQHandler and transmit it, if tx queue is empty, disable tx interupt
+#### last, dequeue send data at USART1_IRQHandler and transmit it, if tx queue is empty, disable tx interrupt
 ````
 if(LL_USART_IsActiveFlag_TXE(USART1))
 {
